@@ -2,7 +2,7 @@
     "development": {
       "username": "root",
       "password": "poyoSkato*666",
-      "database": "skatoweb",
+      "database": "SKATOWeB",
       "host": "127.0.0.1",
       "dialect": "mysql"
     }
