@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User } = require("../models");
 
 // Controlador para crear un usuario
 const createUser = async (req, res) => {
@@ -24,11 +24,11 @@ const getAllUsers = async (req, res) => {
 const getUserByID = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
-    
+
     if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
-    
+
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -42,11 +42,11 @@ const getUserByID = async (req, res) => {
 //     const [updated] = await User.update(req.body, {
 //       where: { id }
 //     });
-    
+
 //     if (!updated) {
 //       return res.status(404).json({ message: 'Usuario no encontrado' });
 //     }
-    
+
 //     const updatedUser = await User.findByPk(id);
 //     res.status(200).json(updatedUser);
 //   } catch (error) {
@@ -62,11 +62,11 @@ const getUserByID = async (req, res) => {
 //     const deleted = await User.destroy({
 //       where: { id }
 //     });
-    
+
 //     if (!deleted) {
 //       return res.status(404).json({ message: 'Usuario no encontrado' });
 //     }
-    
+
 //     res.status(204).json({ message: 'Usuario eliminado' });
 //   } catch (error) {
 //     res.status(500).json({ error: error.message });
@@ -76,5 +76,5 @@ const getUserByID = async (req, res) => {
 module.exports = {
   createUser,
   getAllUsers,
-  getUserByID
+  getUserByID,
 };

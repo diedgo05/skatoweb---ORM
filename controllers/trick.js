@@ -1,4 +1,4 @@
-const { Trick } = require('../models');
+const { Trick } = require("../models");
 
 // Controlador para crear un usuario
 const createTrick = async (req, res) => {
@@ -24,11 +24,11 @@ const getAllTricks = async (req, res) => {
 const getTrickByID = async (req, res) => {
   try {
     const trick = await Trick.findByPk(req.params.id);
-    
+
     if (!trick) {
-      return res.status(404).json({ message: 'Truco no encontrado' });
+      return res.status(404).json({ message: "Truco no encontrado" });
     }
-    
+
     res.status(200).json(trick);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -40,13 +40,13 @@ const updateTrick = async (req, res) => {
   try {
     const { id } = req.params;
     const [updated] = await Trick.update(req.body, {
-      where: { id }
+      where: { id },
     });
-    
+
     if (!updated) {
-      return res.status(404).json({ message: 'Truco no encontrado' });
+      return res.status(404).json({ message: "Truco no encontrado" });
     }
-    
+
     const updatedTricks = await Trick.findByPk(id);
     res.status(200).json(updatedTricks);
   } catch (error) {
@@ -60,24 +60,23 @@ const deleteTrick = async (req, res) => {
   try {
     const { id } = req.params;
     const deleted = await Trick.destroy({
-      where: { id }
+      where: { id },
     });
-    
+
     if (!deleted) {
-      return res.status(404).json({ message: 'Truco no encontrado' });
+      return res.status(404).json({ message: "Truco no encontrado" });
     }
-    
-    res.status(204).json({ message: 'Truco eliminado' });
-  }
-   catch (error) {
+
+    res.status(204).json({ message: "Truco eliminado" });
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
 module.exports = {
-    createTrick,
-    getAllTricks,
-    getTrickByID,
-    updateTrick,
-    deleteTrick
+  createTrick,
+  getAllTricks,
+  getTrickByID,
+  updateTrick,
+  deleteTrick,
 };
