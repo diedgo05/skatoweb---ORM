@@ -4,7 +4,7 @@ const trickController = require("../controllers/trick");
 
 router.post("/add", trickController.createTrick);
 router.get("/", trickController.getAllTricks);
-router.get("/:id", trickController.getTrickByID);
+router.get("/:idUser", trickController.getTrickByID);
 router.put("/up/:id", trickController.updateTrick);
 router.delete("/delete/:id", trickController.deleteTrick);
 
