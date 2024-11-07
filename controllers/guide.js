@@ -75,10 +75,33 @@ const deleteGuide = async (req, res) => {
   }
 };
 
+// const searchGuidesByTrickName = async (req, res) => {
+//   try {
+//     const query = req.query.query; 
+    
+//     const guides = await Guide.findAll({
+//       include: [{
+//           model: Trick,
+//           where: { title: query }  
+//       }]
+//   });
+
+//     if (guides.length === 0) {
+//       return res.status(404).json({ message: "No se encontraron guías para ese truco" });
+//     }
+
+//     res.status(200).json(guides);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
+
 module.exports = {
   createGuide: [authenticateToken, createGuide],
   getAllGuides: [getAllGuides],
   getGuideByID: [authenticateToken, getGuideByID],
   updateGuide: [authenticateToken, updateGuide],
   deleteGuide: [authenticateToken, deleteGuide],
+  // searchGuidesByTrickName: [authenticateToken, searchGuidesByTrickName]
 };
