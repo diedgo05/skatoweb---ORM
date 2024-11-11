@@ -1,14 +1,21 @@
 const { Trick } = require("../models");
+const authenticateToken = require("../controllers/authMiddleware");
+const config = require('../config/config.json');
+const { where } = require("sequelize");
+const SECRET_KEY = config.development.SECRET_KEY
 
 // Controlador para crear un usuario
 const createTrick = async (req, res) => {
+  console.log(req.body); 
   try {
     const trick = await Trick.create(req.body);
     res.status(201).json(trick);
   } catch (error) {
     res.status(500).json({ error: error.message });
+    console.error(error)
   }
 };
+
 
 // Controlador para obtener todos los usuarios
 const getAllTricks = async (req, res) => {
@@ -23,17 +30,18 @@ const getAllTricks = async (req, res) => {
 // Controlador para obtener un usuario por ID
 const getTrickByID = async (req, res) => {
   try {
-    const trick = await Trick.findByPk(req.params.id);
+    const tricks = await Trick.findAll({ where: { idUser: req.params.idUser } });
 
-    if (!trick) {
-      return res.status(404).json({ message: "Truco no encontrado" });
+    if (!tricks || tricks.length === 0) {
+      return res.status(404).json({ message: "No se encontraron trucos para este usuario" });
     }
 
-    res.status(200).json(trick);
+    res.status(200).json(tricks);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Controlador para actualizar un usuario
 const updateTrick = async (req, res) => {

@@ -1,5 +1,9 @@
 const { Guide } = require("../models");
+const authenticateToken = require("../controllers/authMiddleware");
+const config = require('../config/config.json')
+const SECRET_KEY = config.development.SECRET_KEY
 
+// Controlador para crear una guia (token)
 const createGuide = async (req, res) => {
   try {
     const guide = await Guide.create(req.body);
@@ -9,6 +13,7 @@ const createGuide = async (req, res) => {
   }
 };
 
+// Controlador para obtener todas las guias (token)
 const getAllGuides = async (req, res) => {
   try {
     const guides = await Guide.findAll();
@@ -18,11 +23,12 @@ const getAllGuides = async (req, res) => {
   }
 };
 
+// Controlador para obtener una guía por ID (token)
 const getGuideByID = async (req, res) => {
   try {
-    const guide = await Guide.findByPk(req.params.id);
+    const guide = await Guide.findAll({ where: { idUser: req.params.idUser } });;
 
-    if (!guide) {
+    if (!guide || guide.length === 0) {
       return res.status(404).json({ message: "Guia no encontrado" });
     }
 
@@ -32,6 +38,7 @@ const getGuideByID = async (req, res) => {
   }
 };
 
+// Controlador para actualizar una guía (token)
 const updateGuide = async (req, res) => {
   try {
     const { id } = req.params;
@@ -50,6 +57,7 @@ const updateGuide = async (req, res) => {
   }
 };
 
+// Controlador para eliminar una guía (token)
 const deleteGuide = async (req, res) => {
   try {
     const { id } = req.params;
@@ -67,10 +75,33 @@ const deleteGuide = async (req, res) => {
   }
 };
 
+// const searchGuidesByTrickName = async (req, res) => {
+//   try {
+//     const query = req.query.query; 
+    
+//     const guides = await Guide.findAll({
+//       include: [{
+//           model: Trick,
+//           where: { title: query }  
+//       }]
+//   });
+
+//     if (guides.length === 0) {
+//       return res.status(404).json({ message: "No se encontraron guías para ese truco" });
+//     }
+
+//     res.status(200).json(guides);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
+
 module.exports = {
-  createGuide,
-  getAllGuides,
-  getGuideByID,
-  updateGuide,
-  deleteGuide,
+  createGuide: [authenticateToken, createGuide],
+  getAllGuides: [getAllGuides],
+  getGuideByID: [authenticateToken, getGuideByID],
+  updateGuide: [authenticateToken, updateGuide],
+  deleteGuide: [authenticateToken, deleteGuide],
+  // searchGuidesByTrickName: [authenticateToken, searchGuidesByTrickName]
 };
