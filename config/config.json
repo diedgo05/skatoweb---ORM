@@ -1,11 +1,10 @@
 {
     "development": {
-      "username": "root",
-      "password": "poyoSkato*666",
-      "database": "SKATOWeB",
-      "host": "127.0.0.1",
-      "dialect": "mysql",
-      "SECRET_KEY": "esunsecretoquetumiradaylamiaunsentimiento{ñl"
-
+     "username": "root",
+     "password": "poyoSkato*666",
+     "database": "SKATOWeB",
+     "host": "127.0.0.1",
+     "dialect": "mysql",
+     "SECRET_KEY": "esunsecretoquetumiradaylamiaunsentimiento{ñl" 
     }
-  }
+}
