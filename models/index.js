@@ -1,12 +1,17 @@
 const Sequelize = require("sequelize");
 const config = require("../config/config.json");
+
+// Lee primero las variables de entorno (Docker) y, si no existen,
+// cae al config.json (desarrollo local). Así NO rompemos el flujo local.
 const sequelize = new Sequelize(
-  config.development.database,
-  config.development.username,
-  config.development.password,
+  process.env.DB_NAME || config.development.database,
+  process.env.DB_USER || config.development.username,
+  process.env.DB_PASS || config.development.password,
   {
-    host: config.development.host,
-    dialect: config.development.dialect,
+    host: process.env.DB_HOST || config.development.host,
+    port: process.env.DB_PORT || 3306,
+    dialect: process.env.DB_DIALECT || config.development.dialect,
+    logging: false,
   }
 );
 
